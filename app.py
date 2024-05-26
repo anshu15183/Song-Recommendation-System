@@ -259,7 +259,7 @@ st.markdown(
 )
 
 #Project title
-st.markdown("<h1 class='title'>Music Recommendation System</h1>", unsafe_allow_html=True)
+st.markdown("<h1 class='title'>Musicify - Music Recommendation System</h1>", unsafe_allow_html=True)
 selected_music_name = st.selectbox('Select a music you like', music['title'].values)
 
 
