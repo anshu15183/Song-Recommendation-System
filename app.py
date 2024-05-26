@@ -296,37 +296,26 @@ if st.button('Recommend',):
     #Recommended Movies
     st.markdown(f'<h1 style="{title_style}">Recommended Songs</h1></br>', unsafe_allow_html=True)
 
-    # Display recommended songs in tiles
-    col1, col2 = st.columns(2)
-    for i in range(0, len(names), 2):
-        with col1:
-            st.image(posters[i], width=300)
-            st.write(f"**Song Name:** {names[i]}")
-            if st.button(f"Show Details {i+1}"):
-                # Display modal with song details
-                st.write(f"**Song Name:** {names[i]}")
-                st.write(f"**Artist Name:** {artist_name}")
-                st.write(f"**Album Name:** {album_name}")
-                st.write(f"**Release Date:** {release_date}")
-                st.write(f"**Popularity:** {popularity}")
-                if spotify_url:
-                    st.markdown(f"[Listen on Spotify]({spotify_url})")
-        with col2:
-            if i+1 < len(names):
-                st.image(posters[i+1], width=300)
-                st.write(f"**Song Name:** {names[i+1]}")
-                if st.button(f"Show Details {i+2}"):
-                    # Display modal with song details
-                    st.write(f"**Song Name:** {names[i+1]}")
-                    st.write(f"**Artist Name:** {artist_name}")
-                    st.write(f"**Album Name:** {album_name}")
-                    st.write(f"**Release Date:** {release_date}")
-                    st.write(f"**Popularity:** {popularity}")
-                    if spotify_url:
-                        st.markdown(f"[Listen on Spotify]({spotify_url})")
+    col1, col2, col3, col4, col5 = st.columns(5)
+    columns = [col1, col2, col3, col4, col5]
 
+    for i in range(1, 6):
+        with columns[i - 1]:
+            st.write(f"<div style='color: hotpink;font-size:18px;font-weight:bold; text-align:center'>{names[i]}</div>", unsafe_allow_html=True)
+            st.image(posters[i])
+            
+    st.write(f'</br></br>', unsafe_allow_html=True)
+
+    col1, col2, col3, col4, col5 = st.columns(5)
+    columns = [col1, col2, col3, col4, col5]
+    
+    for i, col in enumerate(columns):  
+        with col:
+            st.write(f"<div style='color: hotpink;font-size:18px;font-weight:bold;text-align:center'>{names[i+6]}</div>", unsafe_allow_html=True)
+            st.image(posters[i + 6])
 
     logging.info("Successfully show all resommended movies")
+
 
 
 ##Team Name 
