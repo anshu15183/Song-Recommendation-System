@@ -20,11 +20,11 @@ client_credentials_manager = SpotifyClientCredentials(client_id=CLIENT_ID, clien
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 ##Songs data
-music_dict = pickle.load(open(r'artifacts\musicrec.pkl', 'rb'))
+music_dict = pickle.load(open(r'artifacts/musicrec.pkl', 'rb'))
 music = pd.DataFrame(music_dict)
 
 ## Similarity distance between songs
-similarity = pickle.load(open(r'artifacts\similarity.pkl', 'rb'))
+similarity = pickle.load(open(r'artifacts/similarity.pkl', 'rb'))
 
 
 text_style = (
