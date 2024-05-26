@@ -177,17 +177,18 @@ def recommend(song):
 
 #This function is used to fetch song information
 def fetch_song_info(track_name):
+
     """
-    This function is used for fetch song information like name, release date, ranking, and more.
+    This function is used for fetch song information like name,release date, ranking and more.
     
     Args:
-        track_name (str): The name of the song to fetch information for.
+        Song Name
 
-    Returns:
-        Tuple[str, str, str, str, int, str]: A tuple containing track_name, artist_name, album_name,
-        release_date, popularity, and spotify_url.
+    return:
+           track_name, artist_name, album_name, release_date, popularity, preview_url
     """
-    logging.info("Entering fetch song info function")
+
+    logging.info("I am enter fetch song info function")
     try:
         url = "https://api.spotify.com/v1/search"
         
@@ -198,8 +199,8 @@ def fetch_song_info(track_name):
         }
         
         # Spotify API credentials
-        client_id = "your_client_id"
-        client_secret = "your_client_secret"
+        client_id = "70a9fb89662f4dac8d07321b259eaad7"
+        client_secret = "4d6710460d764fbbb8d8753dc094d131"
         
         # Encode client ID and client secret
         client_credentials = f"{client_id}:{client_secret}"
@@ -231,19 +232,18 @@ def fetch_song_info(track_name):
                     album_name = track["album"]["name"]
                     release_date = track["album"]["release_date"]
                     popularity = track["popularity"]
-                    spotify_url = track["external_urls"]["spotify"]
+                    preview_url = track["preview_url"]
                     
-                    return track_name, artist_name, album_name, release_date, popularity, spotify_url
+                    return track_name, artist_name, album_name, release_date, popularity, preview_url
                 else:
-                    return "None", "None", "None", "None", 0, "None"
+                    return "None"
             else:
-                return "None", "None", "None", "None", 0, "None"
+                return "None"
         else:
-            return "None", "None", "None", "None", 0, "None"
+            return "None"
     except Exception as e:
-        logging.info("Error Occurred: {}".format(e))
+        logging.info("Error Occure {}".format(e))
         raise CustomException(e, sys)
-
 
 st.markdown(
     """
