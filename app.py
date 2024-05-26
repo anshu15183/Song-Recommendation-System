@@ -318,7 +318,7 @@ if st.button('Recommend',):
     
     for i, col in enumerate(columns):  
         with col:
-            name,artist_name,album_name,release_date,popularity,spotify_url = fetch_song_info(names[i])
+            name,artist_name,album_name,release_date,popularity,spotify_url = fetch_song_info(names[i+])
             st.write(f"<div style='color: hotpink;font-size:18px;font-weight:bold; text-align:center'>{names[i]}</div>", unsafe_allow_html=True)
             st.markdown(f"""
         <div style="position: relative;">
