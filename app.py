@@ -318,10 +318,15 @@ if st.button('Recommend',):
     
     for i, col in enumerate(columns):  
         with col:
-            name,artist_name,album_name,release_date,popularity,spotify_url = fetch_song_info(names[i+6])
-            st.write(f"<div style='color: hotpink;font-size:18px;font-weight:bold;text-align:center'>{names[i+6]}</div>", unsafe_allow_html=True)
-            st.markdown(f'<a href="#" target="_blank"><img src="{posters[i + 6]}" style="border-radius: 10px; width:250px;box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);"></a>', unsafe_allow_html=True)
-
+            name,artist_name,album_name,release_date,popularity,spotify_url = fetch_song_info(names[i])
+            st.write(f"<div style='color: hotpink;font-size:18px;font-weight:bold; text-align:center'>{names[i]}</div>", unsafe_allow_html=True)
+            st.markdown(f"""
+        <div style="position: relative;">
+                <img src="{posters[i]}" style="border-radius: 10px; width:250px;box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);">
+                <a href="{spotify_url}" target="_blank">
+                <span class="ButtonInner-sc-14ud5tc-0 rVdSj encore-bright-accent-set" style="position: absolute; bottom: 10px; right: 10px; width: 50px; height: 50px;"><span aria-hidden="true" class="IconWrapper__Wrapper-sc-1hf1hjl-0 bjlVXn"><svg data-encore-id="icon" role="img" aria-hidden="true" viewBox="0 0 24 24" class="Svg-sc-ytk21e-0 bneLcE"><path d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606z" fill="#1ed760"></path></svg></span></span>
+            </a>
+        </div>""", unsafe_allow_html=True)
     logging.info("Successfully show all resommended movies")
 
 
