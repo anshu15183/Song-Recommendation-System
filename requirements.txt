@@ -1,0 +1,8 @@
+pandas 
+numpy
+scikit-learn
+requests
+spotipy
+base64
+streamlit
+-e .
