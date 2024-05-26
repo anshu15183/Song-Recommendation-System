@@ -307,7 +307,7 @@ if st.button('Recommend',):
         <div style="position: relative;">
                 <img src="{posters[i]}" style="border-radius: 10px; width:250px;box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);">
                 <a href="{spotify_url}" target="_blank">
-                <button style="position: absolute; bottom: 10px; right: 10px; width: 50px; height: 50px; background-color: transparent; padding: 5px; border: none;"><svg data-encore-id="icon" role="img" aria-hidden="true" viewBox="0 0 16 16" class="Svg-sc-ytk21e-0 dYnaPI" style="color: green;><path d="M3 1.713a.7.7 0 0 1 1.05-.607l10.89 6.288a.7.7 0 0 1 0 1.212L4.05 14.894A.7.7 0 0 1 3 14.288V1.713z"></path></svg></button>
+                <span class="ButtonInner-sc-14ud5tc-0 rVdSj encore-bright-accent-set" position: absolute; bottom: 10px; right: 10px; width: 50px; height: 50px;><span aria-hidden="true" class="IconWrapper__Wrapper-sc-1hf1hjl-0 bjlVXn"><svg data-encore-id="icon" role="img" aria-hidden="true" viewBox="0 0 24 24" class="Svg-sc-ytk21e-0 bneLcE"><path d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606z"></path></svg></span></span>
             </a>
         </div>""", unsafe_allow_html=True)
             
