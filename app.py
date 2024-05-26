@@ -12,7 +12,11 @@ from exception import CustomException
 import sys
 warnings.filterwarnings('ignore')
 
-st.set_page_config(layout="wide")
+st.set_page_config(
+    page_title="Musicify || Music Recommendation System",  # Set custom page title
+    page_icon="favicon.ico",  # Set URL of the favicon
+    layout="wide"  # Set layout to wide mode if desired
+)
 
 CLIENT_ID = "70a9fb89662f4dac8d07321b259eaad7"
 CLIENT_SECRET = "4d6710460d764fbbb8d8753dc094d131"
