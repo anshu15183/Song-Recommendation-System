@@ -292,7 +292,12 @@ if st.button('Recommend',):
     
     
     logging.info("Successfully show user enter movie with information")
-    
+
+
+# Fetch recommended songs
+with st.spinner('Fetching recommendations...'):
+    names, posters = recommend(selected_music_name)
+
 #Recommended Songs
 st.markdown(f'<h1 style="{title_style}">Recommended Songs</h1></br>', unsafe_allow_html=True)
 
