@@ -293,41 +293,76 @@ if st.button('Recommend',):
     
     logging.info("Successfully show user enter movie with information")
     
-    #Recommended Songs
-    st.markdown(f'<h1 style="{title_style}">Recommended Songs</h1></br>', unsafe_allow_html=True)
+#Recommended Songs
+st.markdown(f'<h1 style="{title_style}">Recommended Songs</h1></br>', unsafe_allow_html=True)
 
-    col1, col2, col3, col4, col5 = st.columns(5)
-    columns = [col1, col2, col3, col4, col5]
+# Define function to show modal
+def show_modal(song_name):
+    st.write(f"Displaying information for: {song_name}")  # Replace this with your modal implementation
+    logging.info(f"User clicked on song: {song_name}")
 
-    for i in range(1, 6):
-        with columns[i - 1]:
-            name,artist_name,album_name,release_date,popularity,spotify_url = fetch_song_info(names[i])
-            st.write(f"<div style='color: hotpink;font-size:18px;font-weight:bold; text-align:center'>{names[i]}</div>", unsafe_allow_html=True)
-            st.markdown(f"""
-        <div style="position: relative;">
+col_counter = 0  # Counter for columns
+for i in range(1, 11):
+    with columns[col_counter]:
+        name, artist_name, album_name, release_date, popularity, spotify_url = fetch_song_info(names[i])
+        st.write(f"<div style='color: hotpink;font-size:18px;font-weight:bold; text-align:center'>{names[i]}</div>", unsafe_allow_html=True)
+        # Add hover effect with button
+        st.markdown(
+            f"""
+            <div style="position: relative;" class="hover-container">
                 <img src="{posters[i]}" style="border-radius: 10px; width:250px;box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);">
-                <a href="{spotify_url}" target="_blank">
-                <span class="ButtonInner-sc-14ud5tc-0 rVdSj encore-bright-accent-set" style="position: absolute; bottom: 10px; right: 10px; width: 50px; height: 50px;"><span aria-hidden="true" class="IconWrapper__Wrapper-sc-1hf1hjl-0 bjlVXn"><svg data-encore-id="icon" role="img" aria-hidden="true" viewBox="0 0 24 24" class="Svg-sc-ytk21e-0 bneLcE"><path d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606z" fill="#1ed760"></path></svg></span></span>
-            </a>
-        </div>""", unsafe_allow_html=True)
-            
-    st.write(f'</br></br>', unsafe_allow_html=True)
+                <button class="hover-button" onclick="showModal('{names[i]}')">Show Info</button>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+        col_counter += 1
+        if col_counter == 5:
+            col_counter = 0
 
-    col1, col2, col3, col4, col5 = st.columns(5)
-    columns = [col1, col2, col3, col4, col5]
-    
-    for i, col in enumerate(columns):  
-        with col:
-            name,artist_name,album_name,release_date,popularity,spotify_url = fetch_song_info(names[i+6])
-            st.write(f"<div style='color: hotpink;font-size:18px;font-weight:bold; text-align:center'>{names[i+6]}</div>", unsafe_allow_html=True)
-            st.markdown(f"""
-        <div style="position: relative;">
-                <img src="{posters[i+6]}" style="border-radius: 10px; width:250px;box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);">
-                <a href="{spotify_url}" target="_blank">
-                <span class="ButtonInner-sc-14ud5tc-0 rVdSj encore-bright-accent-set" style="position: absolute; bottom: 10px; right: 10px; width: 50px; height: 50px;"><span aria-hidden="true" class="IconWrapper__Wrapper-sc-1hf1hjl-0 bjlVXn"><svg data-encore-id="icon" role="img" aria-hidden="true" viewBox="0 0 24 24" class="Svg-sc-ytk21e-0 bneLcE"><path d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606z" fill="#1ed760"></path></svg></span></span>
-            </a>
-        </div>""", unsafe_allow_html=True)
-    logging.info("Successfully show all resommended movies")
+# JavaScript for modal
+st.markdown(
+    """
+    <script>
+        function showModal(songName) {
+            const message = `Displaying information for: ${songName}`;
+            alert(message); // Replace this with your modal implementation
+            // Log the song clicked
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "/log", true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify({"song": songName}));
+        }
+    </script>
+    """,
+    unsafe_allow_html=True
+)
+
+# CSS for hover effect
+st.markdown(
+    """
+    <style>
+        .hover-button {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 50px;
+            height: 50px;
+            background-color: #1ed760;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .hover-container:hover .hover-button {
+            opacity: 1;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 
 
@@ -335,9 +370,6 @@ if st.button('Recommend',):
 
 
 
-
-
-modify only in this part only to have hover buttons and show modal
 
 
 
