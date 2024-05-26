@@ -296,6 +296,10 @@ if st.button('Recommend',):
 #Recommended Songs
 st.markdown(f'<h1 style="{title_style}">Recommended Songs</h1></br>', unsafe_allow_html=True)
 
+# Define the columns for recommended songs
+col1, col2, col3, col4, col5 = st.columns(5)
+columns = [col1, col2, col3, col4, col5]
+
 # Define function to show modal
 def show_modal(song_name):
     st.write(f"Displaying information for: {song_name}")  # Replace this with your modal implementation
