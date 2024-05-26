@@ -283,7 +283,7 @@ if st.button('Recommend',):
         st.write(f'<div style="{text_style}">Popularity  : {popularity}</div></br>', unsafe_allow_html=True)
     with col3:
          if spotify_url:
-            st.markdown(f'<style>{keyframes}</style>'f'<a href="{spotify_url}" target="_blank" style="{link_style}">👉  🎵 Listen to Sample 🎵</a></br>',unsafe_allow_html=True)
+            st.markdown(f'<style>{keyframes}</style>'f'<a href="{spotify_url}" target="_blank" style="{link_style}">👉  🎵 Listen on Spotify 🎵</a></br>',unsafe_allow_html=True)
             
     
     
