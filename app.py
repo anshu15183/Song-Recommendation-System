@@ -300,7 +300,7 @@ if st.button('Recommend',):
             </g>
         </g>
     </g>
-</svg 🎵 Listen on Spotify 🎵</a></br>',unsafe_allow_html=True)
+</svg> 🎵 Listen on Spotify 🎵</a></br>',unsafe_allow_html=True)
             
     
     
