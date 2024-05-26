@@ -181,7 +181,7 @@ def fetch_song_info(track_name):
         Song Name
 
     return:
-           track_name, artist_name, album_name, release_date, popularity, preview_url
+           track_name, artist_name, album_name, release_date, popularity, spotify_url
     """
 
     logging.info("I am enter fetch song info function")
@@ -228,9 +228,9 @@ def fetch_song_info(track_name):
                     album_name = track["album"]["name"]
                     release_date = track["album"]["release_date"]
                     popularity = track["popularity"]
-                    preview_url = track["preview_url"]
+                    spotify_url = track["spotify_url"]
                     
-                    return track_name, artist_name, album_name, release_date, popularity, preview_url
+                    return track_name, artist_name, album_name, release_date, popularity, spotify_url
                 else:
                     return "None"
             else:
@@ -267,7 +267,7 @@ if st.button('Recommend',):
     #Fetch All Data from api
     with st.spinner('Fetching recommendations...'):
         names, posters = recommend(selected_music_name)
-        name,artist_name,album_name,release_date,popularity,preview_url = fetch_song_info(selected_music_name)
+        name,artist_name,album_name,release_date,popularity,spotify_url = fetch_song_info(selected_music_name)
     
     #User Enter movie
     col1, col2,col3 = st.columns(3)
@@ -282,8 +282,8 @@ if st.button('Recommend',):
         st.write(f'<div style="{text_style}">Release Date: {release_date}</div></br>', unsafe_allow_html=True)
         st.write(f'<div style="{text_style}">Popularity  : {popularity}</div></br>', unsafe_allow_html=True)
     with col3:
-         if preview_url:
-            st.markdown(f'<style>{keyframes}</style>'f'<a href="{preview_url}" target="_blank" style="{link_style}">👉  🎵 Listen to Sample 🎵</a></br>',unsafe_allow_html=True)
+         if spotify_url:
+            st.markdown(f'<style>{keyframes}</style>'f'<a href="{spotify_url}" target="_blank" style="{link_style}">👉  🎵 Listen to Sample 🎵</a></br>',unsafe_allow_html=True)
             
     
     
