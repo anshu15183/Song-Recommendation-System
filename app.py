@@ -302,8 +302,82 @@ if st.button('Recommend',):
     for i in range(1, 6):
         with columns[i - 1]:
             st.write(f"<div style='color: hotpink;font-size:18px;font-weight:bold; text-align:center'>{names[i]}</div>", unsafe_allow_html=True)
-            st.image(posters[i])
-            
+            # Add a container div for the poster and button
+            st.write(f"<div class='poster-container'>", unsafe_allow_html=True)
+            st.image(posters[i], use_column_width='always')
+            # Add a button within the container div, initially hidden
+            st.write(f'<button class="btn-details" id="btn-details-{i}">Details</button>', unsafe_allow_html=True)
+            st.write("</div>", unsafe_allow_html=True)
+# Add CSS for styling
+st.write(
+    """
+    <style>
+    .poster-container {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+    .btn-details {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        opacity: 0; /* Initially hidden */
+        transition: opacity 0.3s ease;
+    }
+    .btn-details:hover {
+        opacity: 1; /* Show button on hover */
+    }
+    </style>
+    """
+)
+
+# Add JavaScript to handle modal opening
+st.write(
+    """
+    <script>
+    // Function to open modal with song details
+    function openModal(songName, posterUrl) {
+        const modalContent = `
+            <div style="text-align: center;">
+                <img src="${posterUrl}" style="max-width: 200px;">
+                <p>Song Name: ${songName}</p>
+                <!-- Add more song details here -->
+            </div>
+        `;
+        // Render modal content
+        const modal = document.createElement('div');
+        modal.classList.add('modal');
+        modal.innerHTML = modalContent;
+        document.body.appendChild(modal);
+        
+        // Close modal when close button is clicked
+        const closeButton = document.createElement('button');
+        closeButton.classList.add('close-button');
+        closeButton.innerText = 'X';
+        closeButton.onclick = () => {
+            document.body.removeChild(modal);
+        };
+        modal.appendChild(closeButton);
+    }
+
+    // Add event listeners to each button
+    const buttons = document.querySelectorAll('.btn-details');
+    buttons.forEach((button, index) => {
+        button.addEventListener('click', () => {
+            const songName = document.querySelector(`#name-${index}`).textContent.trim();
+            const posterUrl = document.querySelector(`#poster-${index}`).getAttribute('src');
+            openModal(songName, posterUrl);
+        });
+    });
+    </script>
+    """)
     st.write(f'</br></br>', unsafe_allow_html=True)
 
     col1, col2, col3, col4, col5 = st.columns(5)
