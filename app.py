@@ -301,8 +301,10 @@ if st.button('Recommend',):
 
     for i in range(1, 6):
         with columns[i - 1]:
+            name,artist_name,album_name,release_date,popularity,spotify_url = fetch_song_info(names[i])
             st.write(f"<div style='color: hotpink;font-size:18px;font-weight:bold; text-align:center'>{names[i]}</div>", unsafe_allow_html=True)
-            st.image(posters[i])
+            st.markdown(f'<a href="{spotify_url}" target="_blank"><img src="{posters[i]}" style="border-radius: 10px; width:250px;box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);"></a>', unsafe_allow_html=True)
+
             
     st.write(f'</br></br>', unsafe_allow_html=True)
 
@@ -311,8 +313,9 @@ if st.button('Recommend',):
     
     for i, col in enumerate(columns):  
         with col:
+            name,artist_name,album_name,release_date,popularity,spotify_url = fetch_song_info(names[i+6])
             st.write(f"<div style='color: hotpink;font-size:18px;font-weight:bold;text-align:center'>{names[i+6]}</div>", unsafe_allow_html=True)
-            st.image(posters[i + 6])
+            st.markdown(f'<a href="#" target="_blank"><img src="{posters[i + 6]}" style="border-radius: 10px; width:250px;box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);"></a>', unsafe_allow_html=True)
 
     logging.info("Successfully show all resommended movies")
 
