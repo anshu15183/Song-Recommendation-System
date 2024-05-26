@@ -12,6 +12,8 @@ from exception import CustomException
 import sys
 warnings.filterwarnings('ignore')
 
+st.set_page_config(layout="wide")
+
 CLIENT_ID = "70a9fb89662f4dac8d07321b259eaad7"
 CLIENT_SECRET = "4d6710460d764fbbb8d8753dc094d131"
 
