@@ -305,9 +305,9 @@ if st.button('Recommend',):
             st.write(f"<div style='color: hotpink;font-size:18px;font-weight:bold; text-align:center'>{names[i]}</div>", unsafe_allow_html=True)
             st.markdown(f"""
         <div style="position: relative;">
-            <a href="{spotify_url}" target="_blank">
                 <img src="{posters[i]}" style="border-radius: 10px; width:250px;box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);">
-                <img src="play_button_image_url.png" style="position: absolute; bottom: 10px; right: 10px; width: 50px; height: 50px;" alt="Play Button">
+                <a href="{spotify_url}" target="_blank">
+                <img src="play.gif" style="position: absolute; bottom: 10px; right: 10px; width: 50px; height: 50px;" alt="Play Button">
             </a>
         </div>""", unsafe_allow_html=True)
             
