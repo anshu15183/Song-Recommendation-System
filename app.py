@@ -270,7 +270,7 @@ if st.button('Recommend',):
     #Fetch All Data from api
     with st.spinner('Fetching recommendations...'):
         names, posters = recommend(selected_music_name)
-        name,artist_name,album_name,release_date,popularity,spotify_url = fetch_song_info(selected_music_name)
+        name,artist_name,album_name,release_date,popularity,preview_url, spotify_url = fetch_song_info(selected_music_name)
     
     #User Enter movie
     col1, col2,col3 = st.columns(3)
