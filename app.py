@@ -264,20 +264,32 @@ st.markdown("<h1 class='title'>Musicify - Music Recommendation System</h1>", uns
 selected_music_name = st.selectbox('Select a music you like', music['title'].values)
 
 
-if st.button('Recommend',):
+if st.button('Recommend'):
     st.write(f'</br></br>', unsafe_allow_html=True)
     
-    #Fetch All Data from api
+    # Fetch All Data from API
     with st.spinner('Fetching recommendations...'):
         names, posters = recommend(selected_music_name)
-        name,artist_name,album_name,release_date,popularity,preview_url, spotify_url = fetch_song_info(selected_music_name)
+        song_info = fetch_song_info(selected_music_name)
+        if len(song_info) == 7:
+            name, artist_name, album_name, release_date, popularity, preview_url, spotify_url = song_info
+        else:
+            name = artist_name = album_name = release_date = popularity = preview_url = spotify_url = None
     
-    #User Enter movie
-    col1, col2,col3 = st.columns(3)
+    # Provide default values if any info is None
+    name = name or "N/A"
+    artist_name = artist_name or "Unknown Artist"
+    album_name = album_name or "Unknown Album"
+    release_date = release_date or "Unknown Release Date"
+    popularity = popularity or "Unknown Popularity"
+    url_to_use = spotify_url or preview_url or "#"
+
+    # Display User Selected Song Information
+    col1, col2, col3 = st.columns(3)
 
     with col1:
         st.write(f'<div style="font-weight: bold;font-size: 22px;color: #007bff;">{name}</div>', unsafe_allow_html=True)
-        st.image(posters[0], width=300)  
+        st.image(posters[0], width=300)
     with col2:
         st.write(f'<div style="{text_style} padding-top: 25px;">Song Name   : {name}</div></br>', unsafe_allow_html=True)
         st.write(f'<div style="{text_style}">Artist Name : {artist_name}</div></br>', unsafe_allow_html=True)
@@ -285,15 +297,12 @@ if st.button('Recommend',):
         st.write(f'<div style="{text_style}">Release Date: {release_date}</div></br>', unsafe_allow_html=True)
         st.write(f'<div style="{text_style}">Popularity  : {popularity}</div></br>', unsafe_allow_html=True)
     with col3:
-         if spotify_url:
-            st.markdown(f'<style>{keyframes}</style>'f'<a href="{spotify_url}" target="_blank" style="{link_style}"> <img src="https://cdn3.emoji.gg/emojis/SpotifyLogo.png" width="64px" height="64px" alt="SpotifyLogo"> 🎵 Listen on Spotify 🎵</a></br>',unsafe_allow_html=True)
-            
-    
-    
-    logging.info("Successfully show user enter movie with information")
+        if url_to_use != "#":
+            st.markdown(f'<style>{keyframes}</style>'f'<a href="{url_to_use}" target="_blank" style="{link_style}"> <img src="https://cdn3.emoji.gg/emojis/SpotifyLogo.png" width="64px" height="64px" alt="SpotifyLogo"> 🎵 Listen Here 🎵</a></br>',unsafe_allow_html=True)
 
+    logging.info("Successfully displayed user-selected song with information")
 
-#Recommended Movies
+    # Recommended Songs
     st.markdown(f'<h1 style="{title_style}">Recommended Songs</h1></br>', unsafe_allow_html=True)
 
     col1, col2, col3, col4, col5 = st.columns(5)
@@ -301,33 +310,52 @@ if st.button('Recommend',):
 
     for i in range(1, 6):
         with columns[i - 1]:
-            name,artist_name,album_name,release_date,popularity,preview_url, spotify_url = fetch_song_info(names[i])
-            st.write(f"<div style='color: hotpink;font-size:18px;font-weight:bold; text-align:center'>{names[i]}</div>", unsafe_allow_html=True)
-            st.markdown(f"""
-        <div style="position: relative;">
-                <img src="{posters[i]}" style="border-radius: 10px; width:250px;box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);">
-                <a href="{spotify_url}" target="_blank">
-                <span class="ButtonInner-sc-14ud5tc-0 rVdSj encore-bright-accent-set" style="position: absolute; bottom: 10px; right: 10px; width: 50px; height: 50px;"><span aria-hidden="true" class="IconWrapper__Wrapper-sc-1hf1hjl-0 bjlVXn"><svg data-encore-id="icon" role="img" aria-hidden="true" viewBox="0 0 24 24" class="Svg-sc-ytk21e-0 bneLcE"><path d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606z" fill="#1ed760"></path></svg></span></span>
-            </a>
-        </div>""", unsafe_allow_html=True)
-            
+            song_info = fetch_song_info(names[i])
+            if len(song_info) == 7:  # Ensure all values are present
+                name, artist_name, album_name, release_date, popularity, preview_url, spotify_url = song_info
+                # Provide default values if any info is None
+                name = name or "N/A"
+                artist_name = artist_name or "Unknown Artist"
+                album_name = album_name or "Unknown Album"
+                release_date = release_date or "Unknown Release Date"
+                popularity = popularity or "Unknown Popularity"
+                url_to_use = spotify_url or preview_url or "#"
+                st.write(f"<div style='color: hotpink;font-size:18px;font-weight:bold; text-align:center'>{name}</div>", unsafe_allow_html=True)
+                st.markdown(f"""
+                <div style="position: relative;">
+                    <img src="{posters[i]}" style="border-radius: 10px; width:250px;box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);">
+                    <a href="{url_to_use}" target="_blank">
+                    <span class="ButtonInner-sc-14ud5tc-0 rVdSj encore-bright-accent-set" style="position: absolute; bottom: 10px; right: 10px; width: 50px; height: 50px;"><span aria-hidden="true" class="IconWrapper__Wrapper-sc-1hf1hjl-0 bjlVXn"><svg data-encore-id="icon" role="img" aria-hidden="true" viewBox="0 0 24 24" class="Svg-sc-ytk21e-0 bneLcE"><path d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606z" fill="#1ed760"></path></svg></span></span>
+                    </a>
+                </div>""", unsafe_allow_html=True)
+
     st.write(f'</br></br>', unsafe_allow_html=True)
 
     col1, col2, col3, col4, col5 = st.columns(5)
     columns = [col1, col2, col3, col4, col5]
-    
+
     for i, col in enumerate(columns):  
         with col:
-            name,artist_name,album_name,release_date,popularity, preview_url, spotify_url = fetch_song_info(names[i+6])
-            st.write(f"<div style='color: hotpink;font-size:18px;font-weight:bold; text-align:center'>{names[i+6]}</div>", unsafe_allow_html=True)
-            st.markdown(f"""
-        <div style="position: relative;">
-                <img src="{posters[i+6]}" style="border-radius: 10px; width:250px;box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);">
-                <a href="{spotify_url}" target="_blank">
-                <span class="ButtonInner-sc-14ud5tc-0 rVdSj encore-bright-accent-set" style="position: absolute; bottom: 10px; right: 10px; width: 50px; height: 50px;"><span aria-hidden="true" class="IconWrapper__Wrapper-sc-1hf1hjl-0 bjlVXn"><svg data-encore-id="icon" role="img" aria-hidden="true" viewBox="0 0 24 24" class="Svg-sc-ytk21e-0 bneLcE"><path d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606z" fill="#1ed760"></path></svg></span></span>
-            </a>
-        </div>""", unsafe_allow_html=True)
-    logging.info("Successfully show all resommended movies")
+            song_info = fetch_song_info(names[i+6])
+            if len(song_info) == 7:  # Ensure all values are present
+                name, artist_name, album_name, release_date, popularity, preview_url, spotify_url = song_info
+                # Provide default values if any info is None
+                name = name or "N/A"
+                artist_name = artist_name or "Unknown Artist"
+                album_name = album_name or "Unknown Album"
+                release_date = release_date or "Unknown Release Date"
+                popularity = popularity or "Unknown Popularity"
+                url_to_use = spotify_url or preview_url or "#"
+                st.write(f"<div style='color: hotpink;font-size:18px;font-weight:bold; text-align:center'>{name}</div>", unsafe_allow_html=True)
+                st.markdown(f"""
+                <div style="position: relative;">
+                    <img src="{posters[i+6]}" style="border-radius: 10px; width:250px;box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);">
+                    <a href="{url_to_use}" target="_blank">
+                    <span class="ButtonInner-sc-14ud5tc-0 rVdSj encore-bright-accent-set" style="position: absolute; bottom: 10px; right: 10px; width: 50px; height: 50px;"><span aria-hidden="true" class="IconWrapper__Wrapper-sc-1hf1hjl-0 bjlVXn"><svg data-encore-id="icon" role="img" aria-hidden="true" viewBox="0 0 24 24" class="Svg-sc-ytk21e-0 bneLcE"><path d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606z" fill="#1ed760"></path></svg></span></span>
+                    </a>
+                </div>""", unsafe_allow_html=True)
+    logging.info("Successfully displayed all recommended songs")
+
 
 
 
