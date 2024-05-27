@@ -235,7 +235,7 @@ def fetch_song_info(track_name):
                     preview_url = track["preview_url"]
                     spotify_url = track["external_urls"]["spotify"]
                     
-                    return track_name, artist_name, album_name, release_date, popularity, preview_url
+                    return track_name, artist_name, album_name, release_date, popularity, preview_url, spotify_url
                 else:
                     return "None"
             else:
