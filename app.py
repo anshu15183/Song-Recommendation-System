@@ -233,6 +233,7 @@ def fetch_song_info(track_name):
                     release_date = track["album"]["release_date"]
                     popularity = track["popularity"]
                     preview_url = track["preview_url"]
+                    spotify_url = track["external_urls"]["spotify"]
                     
                     return track_name, artist_name, album_name, release_date, popularity, preview_url
                 else:
